@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [yesClicked, setYesClicked] = useState(false);
+  const [noBtnPos, setNoBtnPos] = useState({});
+
+  const handleYesClick = () => {
+    setYesClicked(true);
+  };
+
+  const handleNoClick = () => {
+    // Generate new positions
+    const newPos = {
+      position: 'absolute',
+      top: `${Math.random() * (window.innerHeight - 40)}px`, // Subtracting button height
+      left: `${Math.random() * (window.innerWidth - 80)}px` // Subtracting button width
+    };
+    setNoBtnPos(newPos);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Francesca, will you be my Valentine?</h1>
+      <p>See what happens if you try to click no ;)</p>
+      {yesClicked ? (
+        <h2>Yay! I love you!</h2>
+      ) : (
+        <>
+          <button className="yes-button" onClick={handleYesClick}>Yes</button>
+          <button
+            className="no-button"
+            style={noBtnPos}
+            onClick={handleNoClick}>
+            No
+          </button>
+        </>
+      )}
     </div>
   );
 }
